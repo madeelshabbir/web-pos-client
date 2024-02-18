@@ -11,6 +11,8 @@ import { PlaceOrderResponse } from '../types/interfaces/api/responses/place-orde
 import { PlaceOrderRequest } from '../types/interfaces/api/requests/place-order';
 import { placeOrderFormSchema } from '../validation-schemas/place-order';
 import { placeOrderFormInitialValues } from '../fixtures/place-order-form';
+import { notify } from '../utils/toastify';
+import { Toast } from '../types/enums/toast';
 
 interface ConfirmationPopupProps {
   item?: Item,
@@ -19,7 +21,7 @@ interface ConfirmationPopupProps {
 }
 
 const PlaceOrderPopup: FC<ConfirmationPopupProps> = ({ item, open, onClose }) => {
-  const [error, errorExtactor] = useError();
+  const [error, errorExtractor] = useError();
   const [order, setOrder] = useState<PlaceOrderResponse>();
 
   const placeOrder = async (values: Record<string, any>) => {
@@ -30,7 +32,13 @@ const PlaceOrderPopup: FC<ConfirmationPopupProps> = ({ item, open, onClose }) =>
       });
 
       if (response.error) {
-        return errorExtactor(response);
+        if (response.error.general) {
+          notify(response.error.general, Toast.ERROR);
+        } else {
+          errorExtractor(response);
+        }
+
+        return;
       }
 
       setOrder(response);

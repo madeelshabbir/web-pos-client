@@ -14,7 +14,7 @@ import { errorMessage } from '../helpers/error';
 const LoginPage = () => {
   const { login, user } = useAuth();
   const navigate = useNavigate();
-  const [error, errorExtactor] = useError();
+  const [error, errorExtractor] = useError();
 
   useEffect(() => {
     if (Object.keys(user).length) {
@@ -26,7 +26,7 @@ const LoginPage = () => {
     const response = await login(values);
 
     if (response.error) {
-      return errorExtactor(response);
+      return errorExtractor(response);
     }
 
     if (Object.keys(response).length) {

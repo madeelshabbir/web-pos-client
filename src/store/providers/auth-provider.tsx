@@ -1,20 +1,19 @@
-import { useState, type FC, type ReactNode, useEffect } from 'react';
+import { useState, type FC, useEffect } from 'react';
 import Cookies from 'js-cookie';
+
 import { AuthApi } from "../../apis/auth";
 import { AuthRequest } from "../../types/interfaces/api/requests/auth";
 import { AuthResponse } from "../../types/interfaces/api/responses/auth";
 import { AuthContext } from '../../contexts/auth-context';
-import { useNavigate } from 'react-router-dom';
+import { ContainerProps } from '../../types/interfaces/container-props';
 import { notify } from '../../utils/toastify';
 import { Toast } from '../../types/enums/toast';
 import { BROWSER_KEYS } from '../../constants/browser-keys';
 import { ResponseBase } from '../../types/interfaces/api/responses/base';
+import { useNavigate } from 'react-router-dom';
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
 
-const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider: FC<ContainerProps> = ({ children }) => {
   const [user, setUser] = useState<AuthResponse | ResponseBase>({});
   const navigate = useNavigate();
 
@@ -41,6 +40,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     Cookies.remove(TOKEN);
     localStorage.removeItem(USER);
     setUser({});
+    navigate('/login');
   }
 
   const refreshUser = () => {

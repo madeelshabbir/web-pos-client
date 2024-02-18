@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import type { RouteObject } from 'react-router';
+import Layout from './containers/layout';
 
 const Loadable = (Component: any) => (props: JSX.IntrinsicAttributes) => {
   return (
@@ -10,6 +11,7 @@ const Loadable = (Component: any) => (props: JSX.IntrinsicAttributes) => {
 }
 
 const LoginPage = Loadable(lazy(() => import('./pages/login-page')));
+const CataloguePage = Loadable(lazy(() => import('./pages/catalogue-page')));
 
 const routes: RouteObject[] = [
   {
@@ -21,7 +23,7 @@ const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <>Home Page</>,
+        element: <Layout><CataloguePage /></Layout>,
       },
     ],
   },

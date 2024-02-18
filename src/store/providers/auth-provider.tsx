@@ -51,7 +51,6 @@ const AuthProvider: FC<ContainerProps> = ({ children }) => {
       (async () => {
         const response = await new AuthApi().get();
         if (response.error) {
-          console.log('Test');
           navigate('/login');
           notify(response.error.general, Toast.ERROR);
         } else {

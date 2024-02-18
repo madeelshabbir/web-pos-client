@@ -9,11 +9,13 @@ const Layout: FC<ContainerProps> = ({ children }) => {
   return (
     <>
       <AppBar position="static">
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography variant="h6">
-            Web POS
-          </Typography>
-          { !Object.keys(user).length || <Button color="inherit" onClick={logout}>Logout</Button> }
+        <Toolbar className='flex justify-between'>
+          <>
+            <Typography variant="h6">
+              Web POS
+            </Typography>
+            { !Object.keys(user).length || <Button color="inherit" onClick={logout}>Logout</Button> }
+          </>
         </Toolbar>
       </AppBar>
       {children}

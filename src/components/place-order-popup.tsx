@@ -54,7 +54,7 @@ const PlaceOrderPopup: FC<ConfirmationPopupProps> = ({ item, open, onClose }) =>
         <>
           <DialogTitle>Your Claim URL</DialogTitle>
           <DialogContent>
-            <QRCode value="hey" />
+            <QRCode value={order.lineItems[0].claimURL} />
             <Button
               type="button"
               fullWidth
